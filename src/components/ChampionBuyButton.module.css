@@ -1,0 +1,12 @@
+
+.buyBtnContainer {
+  height: 12vh;
+  aspect-ratio: 4/3;
+  background-color: gray;
+}
+
+.buyBtn {
+  border-radius: 0;
+  height: 100%;
+  width: 100%;
+}
