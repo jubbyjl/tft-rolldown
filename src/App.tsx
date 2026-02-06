@@ -1,11 +1,11 @@
 import './App.css'
-import Shop from './components/Shop'
+import HomeMenu from './components/HomeMenu'
 
 function App() {
 
   return (
     <>
-      <Shop />
+      <HomeMenu />
     </>
   )
 }

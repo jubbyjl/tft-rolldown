@@ -3,10 +3,16 @@ import styles from './RerollButton.module.css'
 
 function RerollButton({reroll}: {reroll: () => void}) {
 
+  const keydownReroll = (e: KeyboardEvent) => {
+    if (e.key === 'd') {
+      reroll();
+    }
+  }
+
   useEffect(() => {
-    document.body.addEventListener('keydown', reroll);
+    document.body.addEventListener('keydown', keydownReroll);
     return () => {
-      document.body.removeEventListener('keydown', reroll);
+      document.body.removeEventListener('keydown', keydownReroll);
     }
   }, [])
 
