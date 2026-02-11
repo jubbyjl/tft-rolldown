@@ -1,11 +1,11 @@
 import './App.css'
-import HomeMenu from './components/HomeMenu'
+import Game from './components/Game'
 
 function App() {
 
   return (
     <>
-      <HomeMenu />
+      <Game />
     </>
   )
 }
