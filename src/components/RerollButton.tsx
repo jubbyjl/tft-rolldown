@@ -1,20 +1,22 @@
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import styles from './RerollButton.module.css'
+import { GameStateContext } from '../GameStateContext';
 
 function RerollButton({reroll}: {reroll: () => void}) {
-
-  const keydownReroll = (e: KeyboardEvent) => {
-    if (e.key === 'd') {
-      reroll();
-    }
-  }
+  const gameState = useContext(GameStateContext);
 
   useEffect(() => {
+    const keydownReroll = (e: KeyboardEvent) => {
+      if (e.key === gameState.state.settings.reroll) {
+        reroll();
+      }
+    }
+
     document.body.addEventListener('keydown', keydownReroll);
     return () => {
       document.body.removeEventListener('keydown', keydownReroll);
     }
-  }, [])
+  }, [gameState.state.settings.reroll, reroll])
 
   return <>
     <div>

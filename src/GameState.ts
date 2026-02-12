@@ -18,8 +18,14 @@ type Shop = {
   idIncrement: number,
 }
 
+type Settings = {
+  reroll: string,
+}
+
 export type GameState = {
   status: "menu" | "started" | "results",
+  settings: Settings,
+  timer: number,
   targets: Champion[],
   shop: Shop,
   results: GameResults,
@@ -31,6 +37,7 @@ export type GameStateAction =
   | { type: "returnMenu" }
   | { type: "reroll" }
   | { type: "buy", championId: number }
+  | { type: "editSettings", settings: Settings }
 
 const getShopChampions = (idStart: number): ShopChampion[] => {
   return [
@@ -54,7 +61,7 @@ const getTargetsCount = (champions: ShopChampion[], targets: Champion[]) => {
 
 export const gameStateReducer = (state: GameState, action: GameStateAction): GameState => {
   switch (action.type) {
-    case "start":
+    case "start": {
       if (state.status !== "menu") return state;
 
       const targets = [getRandomChampion()];
@@ -72,24 +79,27 @@ export const gameStateReducer = (state: GameState, action: GameStateAction): Gam
           misbuys: 0,
         },
         shop: {
-          gold: 50,
+          gold: 80,
           champions: champions,
           idIncrement: idIncrement + champions.length,
         }
       }
+    }
 
-    case "end":
+    case "end": {
       if (state.status !== "started") return state;
       return {
         ...state,
         status: "results",
       }
+    }
 
-    case "returnMenu":
+    case "returnMenu": {
       return {
         ...state,
         status: "menu",
       }
+    }
     
     case "reroll": {
       if (state.status !== "started" || state.shop.gold < 2) return state;
@@ -120,7 +130,7 @@ export const gameStateReducer = (state: GameState, action: GameStateAction): Gam
       }
     }
 
-    case "buy":
+    case "buy": {
       if (state.status !== "started" || state.shop.gold < 4) return state;
 
       const champion = state.shop.champions.find(x => x.id === action.championId)?.champion;
@@ -146,8 +156,17 @@ export const gameStateReducer = (state: GameState, action: GameStateAction): Gam
           misbuys: state.results.misbuys + misbuys,
         },
       }
+    }
+
+    case "editSettings": {
+      return {
+        ...state,
+        settings: action.settings,
+      }
+    }
       
-    default:
+    default: {
       throw new Error();
+    }
   }
 }
