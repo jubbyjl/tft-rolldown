@@ -2,7 +2,7 @@ import { useContext } from "react"
 import ChampionBuyButton from "./ChampionBuyButton"
 import RerollButton from "./RerollButton"
 import styles from "./Shop.module.css"
-import { GameStateContext } from "../GameStateContext"
+import { GameStateContext } from "../game-state-context"
 
 function Shop() {
   const gameState = useContext(GameStateContext);

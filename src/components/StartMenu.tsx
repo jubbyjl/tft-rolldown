@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { GameStateContext } from "../GameStateContext"
+import { GameStateContext } from "../game-state-context"
 
 function StartMenu() {
   const gameState = useContext(GameStateContext);

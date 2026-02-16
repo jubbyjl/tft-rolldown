@@ -1,9 +1,9 @@
 import { useReducer, useState } from "react"
 import Shop from "./Shop"
-import { GameStateContext } from "../GameStateContext"
+import { GameStateContext } from "../game-state-context"
 import StartMenu from "./StartMenu";
 import Results from "./Results";
-import { gameStateReducer } from "../GameState";
+import { gameStateReducer } from "../game-state";
 import Timer from "./Timer";
 import Settings from "./Settings";
 

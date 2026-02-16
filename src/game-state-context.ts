@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import type { GameState, GameStateAction } from './GameState';
+import type { GameState, GameStateAction } from './game-state';
 
 type GameStateContext = {
   state: GameState,

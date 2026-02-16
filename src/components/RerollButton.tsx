@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react'
 import styles from './RerollButton.module.css'
-import { GameStateContext } from '../GameStateContext';
+import { GameStateContext } from '../game-state-context';
 
 function RerollButton({reroll}: {reroll: () => void}) {
   const gameState = useContext(GameStateContext);

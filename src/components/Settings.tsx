@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { GameStateContext } from "../GameStateContext"
+import { GameStateContext } from "../game-state-context"
 
 function Settings() {
   const gameState = useContext(GameStateContext);
