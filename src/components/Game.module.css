@@ -1,0 +1,6 @@
+
+.gameContainer {
+  height: 100vh;
+  background-color: gray;
+  position: relative;
+}

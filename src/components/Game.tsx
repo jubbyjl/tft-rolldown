@@ -6,6 +6,7 @@ import Results from "./Results";
 import { gameStateReducer } from "../game-state";
 import Timer from "./Timer";
 import Settings from "./Settings";
+import styles from "./Game.module.css"
 
 function Game() {
   const [gameState, gameStateDispatch] = useReducer(gameStateReducer, {
@@ -35,22 +36,24 @@ function Game() {
       state: gameState,
       dispatch: (action) => gameStateDispatch(action),
     }}>
-      <div>
-        <button onClick={() => setEditingSettings(prev => !prev)}>Edit settings</button>
-        {editingSettings && <Settings />}
-      </div>
-      <div>
-        {
-          gameState.status === "menu" ?
-            <StartMenu />
-          : gameState.status === "started" ?
-            <>
-              <Timer />
-              <Shop />
-            </>
-          :
-            <Results />
-        }
+      <div className={styles.gameContainer}>
+        <div>
+          <button onClick={() => setEditingSettings(prev => !prev)}>Edit settings</button>
+          {editingSettings && <Settings />}
+        </div>
+        <div>
+          {
+            gameState.status === "menu" ?
+              <StartMenu />
+            : gameState.status === "started" ?
+              <>
+                <Timer />
+                <Shop />
+              </>
+            :
+              <Results />
+          }
+        </div>
       </div>
     </GameStateContext>
   </>

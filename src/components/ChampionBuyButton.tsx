@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import styles from './ChampionBuyButton.module.css'
+import type { Champion } from '../champions';
 
-function ChampionBuyButton({champion, buyable, onBuy}: {champion: string, buyable: boolean, onBuy: () => void}) {
+function ChampionBuyButton({champion, buyable, onBuy}: {champion: Champion, buyable: boolean, onBuy: () => void}) {
   const [bought, setBought] = useState(false);
 
   const buyChampion = () => {
@@ -11,13 +12,23 @@ function ChampionBuyButton({champion, buyable, onBuy}: {champion: string, buyabl
   }
 
   return <>
-    <div className={styles.buyBtnContainer}>
+    <button disabled={!buyable} className={styles.buyBtn} onClick={buyChampion}>
       {!bought &&
-        <button disabled={!buyable} className={styles.buyBtn} onClick={buyChampion}>
-          {champion}
-        </button>
+        <>
+          <div className={styles.championImgContainer}>
+            <img src={champion.src} className={styles.championImg} />
+          </div>
+          <div className={styles.championInfo}>
+            <div>
+              {champion.name}
+            </div>
+            <div>
+              {champion.cost}
+            </div>
+          </div>
+        </>
       }
-    </div>
+    </button>
   </>
 }
 
