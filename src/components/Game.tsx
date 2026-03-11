@@ -1,11 +1,10 @@
-import { useReducer, useState } from "react"
+import { useReducer } from "react"
 import Shop from "./Shop"
 import { GameStateContext } from "../game-state-context"
 import StartMenu from "./StartMenu";
 import Results from "./Results";
 import { gameStateReducer } from "../game-state";
 import Timer from "./Timer";
-import Settings from "./Settings";
 import styles from "./Game.module.css"
 
 function Game() {
@@ -29,31 +28,23 @@ function Game() {
     },
   })
 
-  const [editingSettings, setEditingSettings] = useState(false);
-
   return <>
     <GameStateContext value={{
       state: gameState,
       dispatch: (action) => gameStateDispatch(action),
     }}>
       <div className={styles.gameContainer}>
-        <div>
-          <button onClick={() => setEditingSettings(prev => !prev)}>Edit settings</button>
-          {editingSettings && <Settings />}
-        </div>
-        <div>
-          {
-            gameState.status === "menu" ?
-              <StartMenu />
-            : gameState.status === "started" ?
-              <>
-                <Timer />
-                <Shop />
-              </>
-            :
-              <Results />
-          }
-        </div>
+        {
+          gameState.status === "menu" ?
+            <StartMenu />
+          : gameState.status === "started" ?
+            <>
+              <Timer />
+              <Shop />
+            </>
+          :
+            <Results />
+        }
       </div>
     </GameStateContext>
   </>

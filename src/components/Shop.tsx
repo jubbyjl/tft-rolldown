@@ -24,9 +24,8 @@ function Shop() {
         </div>
         <div className={styles.shopChampions}>
           {shop.champions.map(c => 
-            <div className={styles.shopChampionContainer}>
+            <div key={c.id} className={styles.shopChampionContainer}>
               <ChampionBuyButton
-                key={c.id}  
                 champion={c.champion}
                 buyable={shop.gold >= 4}
                 onBuy={() => gameState.dispatch({ type: "buy", championId: c.id })}
