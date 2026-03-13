@@ -5,6 +5,7 @@ function Results() {
   const gameState = useContext(GameStateContext);
   const results = gameState.state.results;
 
+  // TODO: gold left, time left
   return <>
     <div className="center">
       <h1>Results</h1>
@@ -20,7 +21,7 @@ function Results() {
       <div>
         Misbuys: {results.misbuys}
       </div>
-      <button onClick={() => gameState.dispatch({ type: "returnMenu" })}>Return to menu</button>
+      <button onClick={() => gameState.dispatch({ type: "returnToMenu" })}>Return to menu</button>
     </div>
   </>
 }

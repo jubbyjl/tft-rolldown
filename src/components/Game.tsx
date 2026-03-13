@@ -1,15 +1,17 @@
 import { useReducer } from "react"
 import Shop from "./Shop"
 import { GameStateContext } from "../game-state-context"
-import StartMenu from "./StartMenu";
+import MainMenu from "./MainMenu";
 import Results from "./Results";
 import { gameStateReducer } from "../game-state";
 import Timer from "./Timer";
 import styles from "./Game.module.css"
+import Instructions from "./Instructions";
+import RoundInfo from "./RoundInfo";
 
 function Game() {
   const [gameState, gameStateDispatch] = useReducer(gameStateReducer, {
-    status: "menu",
+    status: "mainMenu",
     settings: {
       reroll: "d",
     },
@@ -18,6 +20,7 @@ function Game() {
     shop: {
       gold: 0,
       champions: [],
+      bought: new Set<number>(),
       idIncrement: 1,
     },
     results: {
@@ -35,11 +38,19 @@ function Game() {
     }}>
       <div className={styles.gameContainer}>
         {
-          gameState.status === "menu" ?
-            <StartMenu />
-          : gameState.status === "started" ?
+          gameState.status === "mainMenu" ?
+            <MainMenu />
+          : gameState.status === "intermission" ?
             <>
+              <button onClick={() => gameStateDispatch({ type: "end" })}>Stop</button>
+              <Instructions />
+              <Shop />
+            </>
+          : gameState.status === "ingame" ?
+            <>
+              <button onClick={() => gameStateDispatch({ type: "end" })}>Stop</button>
               <Timer />
+              <RoundInfo />
               <Shop />
             </>
           :

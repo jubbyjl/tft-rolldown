@@ -15,6 +15,7 @@ type ShopChampion = {
 type Shop = {
   gold: number,
   champions: ShopChampion[],
+  bought: Set<number>,
   idIncrement: number,
 }
 
@@ -23,7 +24,7 @@ type Settings = {
 }
 
 export type GameState = {
-  status: "menu" | "started" | "results",
+  status: "mainMenu" | "intermission" | "ingame" | "results",
   settings: Settings,
   timer: number,
   targets: Champion[],
@@ -32,9 +33,10 @@ export type GameState = {
 }
 
 export type GameStateAction =
-  | { type: "start" }
+  | { type: "play" }
+  | { type: "startRound" }
   | { type: "end" }
-  | { type: "returnMenu" }
+  | { type: "returnToMenu" }
   | { type: "reroll" }
   | { type: "buy", championId: number }
   | { type: "editSettings", settings: Settings }
@@ -61,48 +63,66 @@ const getTargetsCount = (champions: ShopChampion[], targets: Champion[]) => {
 
 export const gameStateReducer = (state: GameState, action: GameStateAction): GameState => {
   switch (action.type) {
-    case "start": {
-      if (state.status !== "menu") return state;
+    case "play": {
+      if (state.status !== "mainMenu") return state;
 
       const targets = [getRandomChampion()];
-      const idIncrement = 1;
-      const champions = getShopChampions(idIncrement);
-
       return {
         ...state,
-        status: "started",
+        status: "intermission",
         targets: targets,
         results: {
           rerolls: 0,
-          targetsSeen: getTargetsCount(champions, targets),
+          targetsSeen: 0,
           targetsBought: 0,
           misbuys: 0,
         },
         shop: {
           gold: 80,
+          champions: [],
+          bought: new Set(),
+          idIncrement: 1,
+        }
+      }
+    }
+
+    case "startRound": {
+      if (state.status !== "intermission") return state;
+      
+      const champions = getShopChampions(state.shop.idIncrement);
+
+      return {
+        ...state,
+        status: "ingame",
+        results: {
+          ...state.results,
+          targetsSeen: getTargetsCount(champions, state.targets),
+        },
+        shop: {
+          ...state.shop,
           champions: champions,
-          idIncrement: idIncrement + champions.length,
+          idIncrement: state.shop.idIncrement + champions.length,
         }
       }
     }
 
     case "end": {
-      if (state.status !== "started") return state;
+      if (state.status !== "intermission" && state.status !== "ingame") return state;
       return {
         ...state,
         status: "results",
       }
     }
 
-    case "returnMenu": {
+    case "returnToMenu": {
       return {
         ...state,
-        status: "menu",
+        status: "mainMenu",
       }
     }
     
     case "reroll": {
-      if (state.status !== "started" || state.shop.gold < 2) return state;
+      if (state.status !== "ingame" || state.shop.gold < 2) return state;
 
       // check if game continues
       if (state.shop.gold - 2 < 4) {
@@ -119,6 +139,7 @@ export const gameStateReducer = (state: GameState, action: GameStateAction): Gam
         shop: {
           gold: state.shop.gold - 2,
           champions: champions,
+          bought: new Set(),
           idIncrement: state.shop.idIncrement + champions.length,
         },
         results: {
@@ -131,24 +152,29 @@ export const gameStateReducer = (state: GameState, action: GameStateAction): Gam
     }
 
     case "buy": {
-      if (state.status !== "started" || state.shop.gold < 4) return state;
+      if (state.status !== "ingame") return state;
 
-      const champion = state.shop.champions.find(x => x.id === action.championId)?.champion;
-      if (champion === undefined) return state;
+      const shopChampion = state.shop.champions.find(x => x.id === action.championId);
+      if (shopChampion === undefined ||
+          state.shop.bought.has(shopChampion.id) ||
+          state.shop.gold < shopChampion.champion.cost) {
+        return state;
+      }
 
-      const isTarget = state.targets.includes(champion);
+      const isTarget = state.targets.includes(shopChampion.champion);
       const targetsBought = isTarget ? 1 : 0;
       const misbuys = targetsBought ^ 1;
 
       // check if game continues
-      const status = state.shop.gold - 4 < 4 ? "results" : "started";
+      const status = state.shop.gold - shopChampion.champion.cost < 4 ? "results" : state.status;
 
       return {
         ...state,
         status: status,
         shop: {
           ...state.shop,
-          gold: state.shop.gold - 4,
+          bought: new Set(state.shop.bought).add(shopChampion.id),
+          gold: state.shop.gold - shopChampion.champion.cost,
         },
         results: {
           ...state.results,

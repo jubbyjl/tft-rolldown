@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { GameStateContext } from "../game-state-context"
-import styles from "./Timer.module.css"
+import TimerBar from "./TimerBar";
 
 function Timer() {
   const gameState = useContext(GameStateContext);
@@ -22,9 +22,7 @@ function Timer() {
     <div>
       Time left: {timeLeft}s
     </div>
-    <div className={styles.timerBarContainer}>
-      <div className={styles.timerBar} style={{animationDuration: `${gameState.state.timer}s`}}></div>
-    </div>
+    <TimerBar duration={gameState.state.timer}/>
   </>
 }
 

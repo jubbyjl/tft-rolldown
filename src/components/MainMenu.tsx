@@ -2,7 +2,7 @@ import { useContext, useLayoutEffect, useRef, useState } from "react"
 import { GameStateContext } from "../game-state-context"
 import Settings from "./Settings";
 
-function StartMenu() {
+function MainMenu() {
   const gameState = useContext(GameStateContext);
 
   const [editingSettings, setEditingSettings] = useState(false);
@@ -29,10 +29,10 @@ function StartMenu() {
         {editingSettings && <Settings />}
       </dialog>
       <div>
-        <button onClick={() => gameState.dispatch({ type: "start" })}>Start game</button>
+        <button onClick={() => gameState.dispatch({ type: "play" })}>Play game</button>
       </div>
     </div>
   </>
 }
 
-export default StartMenu
+export default MainMenu

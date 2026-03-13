@@ -11,9 +11,7 @@ function Shop() {
   return <>
     <div className={styles.shopContainer}>
       <div className={styles.shopInfo}>
-        <button onClick={() => gameState.dispatch({ type: "end" })}>Stop</button>
         <div className={styles.shopInfoGold}>{shop.gold}</div>
-        <div>Targets: {gameState.state.targets.map(x => x.name)}</div>
       </div>
       <div className={styles.shopMain}>
         <div className={styles.shopControls}>
@@ -27,7 +25,7 @@ function Shop() {
             <div key={c.id} className={styles.shopChampionContainer}>
               <ChampionBuyButton
                 champion={c.champion}
-                buyable={shop.gold >= 4}
+                buyable={shop.gold >= c.champion.cost && !shop.bought.has(c.id)}
                 onBuy={() => gameState.dispatch({ type: "buy", championId: c.id })}
               />
             </div>)
