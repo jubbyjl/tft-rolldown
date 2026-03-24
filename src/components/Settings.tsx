@@ -11,7 +11,7 @@ function Settings() {
     const editReroll = (e: KeyboardEvent) => {
       e.stopPropagation();
       if (e.key !== "Escape") {
-        gameState.dispatch({ type: "editSettings", settings: { reroll: e.key }})
+        gameState.dispatch({ type: "editSettings", settings: { reroll: e.key.toLowerCase() }})
       }
       setEditingReroll(false);
     }

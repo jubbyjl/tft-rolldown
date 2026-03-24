@@ -1,4 +1,4 @@
-import { getRandomChampion, type Champion } from "./champions"
+import { getRandomChampion, getRandomTargetPreset, resetChampionPool, type Champion } from "./champions"
 
 type GameResults = {
   rerolls: number,
@@ -66,7 +66,8 @@ export const gameStateReducer = (state: GameState, action: GameStateAction): Gam
     case "play": {
       if (state.status !== "mainMenu") return state;
 
-      const targets = [getRandomChampion()];
+      resetChampionPool();
+      const targets = getRandomTargetPreset();
       return {
         ...state,
         status: "intermission",

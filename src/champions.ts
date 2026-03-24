@@ -109,6 +109,7 @@ export type Champion = {
   name: string,
   src: string,
   cost: number,
+  unlockable: boolean,
 }
 
 /*
@@ -116,109 +117,168 @@ export type Champion = {
 */
 
 const champions: Champion[] = [
-  { name: "Aatrox", src: Aatrox, cost: 5 },
-  { name: "Ahri", src: Ahri, cost: 3 },
-  { name: "Ambessa", src: Ambessa, cost: 4 },
-  { name: "Anivia", src: Anivia, cost: 1 },
-  { name: "Annie", src: Annie, cost: 5 },
-  { name: "Aphelios", src: Aphelios, cost: 2 },
-  { name: "Ashe", src: Ashe, cost: 2 },
-  { name: "Aurelion Sol", src: AurelionSol, cost: 7 },
-  { name: "Azir", src: Azir, cost: 5 },
-  { name: "Bard", src: Bard, cost: 2 },
-  { name: "Baron Nashor", src: BaronNashor, cost: 7 },
-  { name: "Bel'Veth", src: BelVeth, cost: 4 },
-  { name: "Blitzcrank", src: Blitzcrank, cost: 1 },
-  { name: "Braum", src: Braum, cost: 4 },
-  { name: "Briar", src: Briar, cost: 1 },
-  { name: "Brock", src: Brock, cost: 7 },
-  { name: "Caitlyn", src: Caitlyn, cost: 1 },
-  { name: "Chogath", src: Chogath, cost: 2 },
-  { name: "Darius", src: Darius, cost: 3 },
-  { name: "Diana", src: Diana, cost: 4 },
-  { name: "Draven", src: Draven, cost: 3 },
-  { name: "Dr. Mundo", src: DrMundo, cost: 3 },
-  { name: "Ekko", src: Ekko, cost: 2 },
-  { name: "Fiddlesticks", src: Fiddlesticks, cost: 5 },
-  { name: "Fizz", src: Fizz, cost: 4 },
-  { name: "Galio", src: Galio, cost: 5 },
-  { name: "Gangplank", src: Gangplank, cost: 3 },
-  { name: "Garen", src: Garen, cost: 4 },
-  { name: "Graves", src: Graves, cost: 2 },
-  { name: "Gwen", src: Gwen, cost: 3 },
-  { name: "Illaoi", src: Illaoi, cost: 1 },
-  { name: "Jarvan IV", src: JarvanIv, cost: 1 },
-  { name: "Jhin", src: Jhin, cost: 1 },
-  { name: "Jinx", src: Jinx, cost: 3 },
-  { name: "Kaisa", src: Kaisa, cost: 4 },
-  { name: "Kalista", src: Kalista, cost: 4 },
-  { name: "Kennen", src: Kennen, cost: 3 },
-  { name: "Kindred", src: Kindred, cost: 5 },
-  { name: "Kobuko & Yuumi", src: KobukoYuumi, cost: 3 },
-  { name: "Kog'Maw", src: KogMaw, cost: 1 },
-  { name: "LeBlanc", src: LeBlanc, cost: 3 },
-  { name: "Leona", src: Leona, cost: 3 },
-  { name: "Lissandra", src: Lissandra, cost: 4 },
-  { name: "Loris", src: Loris, cost: 3 },
-  { name: "Lucian & Senna", src: LucianSenna, cost: 5 },
-  { name: "Lulu", src: Lulu, cost: 1 },
-  { name: "Lux", src: Lux, cost: 4 },
-  { name: "Malzahar", src: Malzahar, cost: 3 },
-  { name: "Mel", src: Mel, cost: 5 },
-  { name: "Milio", src: Milio, cost: 3 },
-  { name: "Miss Fortune", src: MissFortune, cost: 4 },
-  { name: "Nasus", src: Nasus, cost: 4 },
-  { name: "Nautilus", src: Nautilus, cost: 3 },
-  { name: "Neeko", src: Neeko, cost: 2 },
-  { name: "Nidalee", src: Nidalee, cost: 4 },
-  { name: "Orianna", src: Orianna, cost: 2 },
-  { name: "Ornn", src: Ornn, cost: 5 },
-  { name: "Poppy", src: Poppy, cost: 2 },
-  { name: "Qiyana", src: Qiyana, cost: 1 },
-  { name: "Rek'Sai", src: RekSai, cost: 2 },
-  { name: "Renekton", src: Renekton, cost: 4 },
-  { name: "Rift Herald", src: RiftHerald, cost: 4 },
-  { name: "Rumble", src: Rumble, cost: 1 },
-  { name: "Ryze", src: Ryze, cost: 7 },
-  { name: "Sejuani", src: Sejuani, cost: 3 },
-  { name: "Seraphine", src: Seraphine, cost: 4 },
-  { name: "Sett", src: Sett, cost: 5 },
-  { name: "Shen", src: Shen, cost: 1 },
-  { name: "Shyvana", src: Shyvana, cost: 5 },
-  { name: "Singed", src: Singed, cost: 4 },
-  { name: "Sion", src: Sion, cost: 2 },
-  { name: "Skarner", src: Skarner, cost: 4 },
-  { name: "Sona", src: Sona, cost: 1 },
-  { name: "Swain", src: Swain, cost: 4 },
-  { name: "Sylas", src: Sylas, cost: 7 },
-  { name: "Tahm Kench", src: TahmKench, cost: 5 },
-  { name: "Taric", src: Taric, cost: 4 },
-  { name: "Teemo", src: Teemo, cost: 2 },
-  { name: "T-Hex", src: THex, cost: 5 },
-  { name: "Thresh", src: Thresh, cost: 5 },
-  { name: "Tristana", src: Tristana, cost: 2 },
-  { name: "Tryndamere", src: Tryndamere, cost: 2 },
-  { name: "Twisted Fate", src: TwistedFate, cost: 2 },
-  { name: "Vayne", src: Vayne, cost: 3 },
-  { name: "Veigar", src: Veigar, cost: 4 },
-  { name: "Vi", src: Vi, cost: 2 },
-  { name: "Viego", src: Viego, cost: 1 },
-  { name: "Volibear", src: Volibear, cost: 5 },
-  { name: "Warwick", src: Warwick, cost: 4 },
-  { name: "Wukong", src: Wukong, cost: 4 },
-  { name: "Xerath", src: Xerath, cost: 5 },
-  { name: "Xin Zhao", src: XinZhao, cost: 2 },
-  { name: "Yasuo", src: Yasuo, cost: 2 },
-  { name: "Yone", src: Yone, cost: 4 },
-  { name: "Yorick", src: Yorick, cost: 2 },
-  { name: "Yunara", src: Yunara, cost: 4 },
-  { name: "Zaahen", src: Zaahen, cost: 7 },
-  { name: "Ziggs", src: Ziggs, cost: 5 },
-  { name: "Zilean", src: Zilean, cost: 5 },
-  { name: "Zoe", src: Zoe, cost: 3 },
+  { name: "Aatrox", src: Aatrox, cost: 5, unlockable: true },
+  { name: "Ahri", src: Ahri, cost: 3, unlockable: false },
+  { name: "Ambessa", src: Ambessa, cost: 4, unlockable: false },
+  { name: "Anivia", src: Anivia, cost: 1, unlockable: false },
+  { name: "Annie", src: Annie, cost: 5, unlockable: false },
+  { name: "Aphelios", src: Aphelios, cost: 2, unlockable: false },
+  { name: "Ashe", src: Ashe, cost: 2, unlockable: false },
+  { name: "Aurelion Sol", src: AurelionSol, cost: 7, unlockable: true },
+  { name: "Azir", src: Azir, cost: 5, unlockable: false },
+  { name: "Bard", src: Bard, cost: 2, unlockable: true },
+  { name: "Baron Nashor", src: BaronNashor, cost: 7, unlockable: true },
+  { name: "Bel'Veth", src: BelVeth, cost: 4, unlockable: false },
+  { name: "Blitzcrank", src: Blitzcrank, cost: 1, unlockable: false },
+  { name: "Braum", src: Braum, cost: 4, unlockable: false },
+  { name: "Briar", src: Briar, cost: 1, unlockable: false },
+  { name: "Brock", src: Brock, cost: 7, unlockable: true },
+  { name: "Caitlyn", src: Caitlyn, cost: 1, unlockable: false },
+  { name: "Chogath", src: Chogath, cost: 2, unlockable: false },
+  { name: "Darius", src: Darius, cost: 3, unlockable: true },
+  { name: "Diana", src: Diana, cost: 4, unlockable: true },
+  { name: "Draven", src: Draven, cost: 3, unlockable: false },
+  { name: "Dr. Mundo", src: DrMundo, cost: 3, unlockable: false },
+  { name: "Ekko", src: Ekko, cost: 2, unlockable: false },
+  { name: "Fiddlesticks", src: Fiddlesticks, cost: 5, unlockable: false },
+  { name: "Fizz", src: Fizz, cost: 4, unlockable: true },
+  { name: "Galio", src: Galio, cost: 5, unlockable: true },
+  { name: "Gangplank", src: Gangplank, cost: 3, unlockable: false },
+  { name: "Garen", src: Garen, cost: 4, unlockable: false },
+  { name: "Graves", src: Graves, cost: 2, unlockable: true },
+  { name: "Gwen", src: Gwen, cost: 3, unlockable: true },
+  { name: "Illaoi", src: Illaoi, cost: 1, unlockable: false },
+  { name: "Jarvan IV", src: JarvanIv, cost: 1, unlockable: false },
+  { name: "Jhin", src: Jhin, cost: 1, unlockable: false },
+  { name: "Jinx", src: Jinx, cost: 3, unlockable: false },
+  { name: "Kaisa", src: Kaisa, cost: 4, unlockable: true },
+  { name: "Kalista", src: Kalista, cost: 4, unlockable: true },
+  { name: "Kennen", src: Kennen, cost: 3, unlockable: true },
+  { name: "Kindred", src: Kindred, cost: 5, unlockable: false },
+  { name: "Kobuko & Yuumi", src: KobukoYuumi, cost: 3, unlockable: true },
+  { name: "Kog'Maw", src: KogMaw, cost: 1, unlockable: false },
+  { name: "LeBlanc", src: LeBlanc, cost: 3, unlockable: true },
+  { name: "Leona", src: Leona, cost: 3, unlockable: false },
+  { name: "Lissandra", src: Lissandra, cost: 4, unlockable: false },
+  { name: "Loris", src: Loris, cost: 3, unlockable: false },
+  { name: "Lucian & Senna", src: LucianSenna, cost: 5, unlockable: false },
+  { name: "Lulu", src: Lulu, cost: 1, unlockable: false },
+  { name: "Lux", src: Lux, cost: 4, unlockable: false },
+  { name: "Malzahar", src: Malzahar, cost: 3, unlockable: false },
+  { name: "Mel", src: Mel, cost: 5, unlockable: true },
+  { name: "Milio", src: Milio, cost: 3, unlockable: false },
+  { name: "Miss Fortune", src: MissFortune, cost: 4, unlockable: false },
+  { name: "Nasus", src: Nasus, cost: 4, unlockable: true },
+  { name: "Nautilus", src: Nautilus, cost: 3, unlockable: false },
+  { name: "Neeko", src: Neeko, cost: 2, unlockable: false },
+  { name: "Nidalee", src: Nidalee, cost: 4, unlockable: true },
+  { name: "Orianna", src: Orianna, cost: 2, unlockable: true },
+  { name: "Ornn", src: Ornn, cost: 5, unlockable: false },
+  { name: "Poppy", src: Poppy, cost: 2, unlockable: true },
+  { name: "Qiyana", src: Qiyana, cost: 1, unlockable: false },
+  { name: "Rek'Sai", src: RekSai, cost: 2, unlockable: false },
+  { name: "Renekton", src: Renekton, cost: 4, unlockable: true },
+  { name: "Rift Herald", src: RiftHerald, cost: 4, unlockable: true },
+  { name: "Rumble", src: Rumble, cost: 1, unlockable: false },
+  { name: "Ryze", src: Ryze, cost: 7, unlockable: true },
+  { name: "Sejuani", src: Sejuani, cost: 3, unlockable: false },
+  { name: "Seraphine", src: Seraphine, cost: 4, unlockable: false },
+  { name: "Sett", src: Sett, cost: 5, unlockable: true },
+  { name: "Shen", src: Shen, cost: 1, unlockable: false },
+  { name: "Shyvana", src: Shyvana, cost: 5, unlockable: false },
+  { name: "Singed", src: Singed, cost: 4, unlockable: true },
+  { name: "Sion", src: Sion, cost: 2, unlockable: false },
+  { name: "Skarner", src: Skarner, cost: 4, unlockable: true },
+  { name: "Sona", src: Sona, cost: 1, unlockable: false },
+  { name: "Swain", src: Swain, cost: 4, unlockable: false },
+  { name: "Sylas", src: Sylas, cost: 7, unlockable: true },
+  { name: "Tahm Kench", src: TahmKench, cost: 5, unlockable: true },
+  { name: "Taric", src: Taric, cost: 4, unlockable: false },
+  { name: "Teemo", src: Teemo, cost: 2, unlockable: false },
+  { name: "T-Hex", src: THex, cost: 5, unlockable: true },
+  { name: "Thresh", src: Thresh, cost: 5, unlockable: true },
+  { name: "Tristana", src: Tristana, cost: 2, unlockable: false },
+  { name: "Tryndamere", src: Tryndamere, cost: 2, unlockable: true },
+  { name: "Twisted Fate", src: TwistedFate, cost: 2, unlockable: false },
+  { name: "Vayne", src: Vayne, cost: 3, unlockable: false },
+  { name: "Veigar", src: Veigar, cost: 4, unlockable: true },
+  { name: "Vi", src: Vi, cost: 2, unlockable: false },
+  { name: "Viego", src: Viego, cost: 1, unlockable: false },
+  { name: "Volibear", src: Volibear, cost: 5, unlockable: true },
+  { name: "Warwick", src: Warwick, cost: 4, unlockable: true },
+  { name: "Wukong", src: Wukong, cost: 4, unlockable: false },
+  { name: "Xerath", src: Xerath, cost: 5, unlockable: true },
+  { name: "Xin Zhao", src: XinZhao, cost: 2, unlockable: false },
+  { name: "Yasuo", src: Yasuo, cost: 2, unlockable: false },
+  { name: "Yone", src: Yone, cost: 4, unlockable: true },
+  { name: "Yorick", src: Yorick, cost: 2, unlockable: true },
+  { name: "Yunara", src: Yunara, cost: 4, unlockable: false },
+  { name: "Zaahen", src: Zaahen, cost: 7, unlockable: true },
+  { name: "Ziggs", src: Ziggs, cost: 5, unlockable: true },
+  { name: "Zilean", src: Zilean, cost: 5, unlockable: false },
+  { name: "Zoe", src: Zoe, cost: 3, unlockable: false },
 ]
 
+const championPool: Record<number, Champion[]> = {
+  1: champions.filter(x => x.cost === 1 && !x.unlockable),
+  2: champions.filter(x => x.cost === 2 && !x.unlockable),
+  3: champions.filter(x => x.cost === 3 && !x.unlockable),
+  4: champions.filter(x => x.cost === 4 && !x.unlockable),
+  5: champions.filter(x => x.cost >= 5 && !x.unlockable),
+}
+
+export const resetChampionPool = () => {
+  for (let i = 1; i <= 5; i++) {
+    championPool[i] = championPool[i].filter(x => !x.unlockable);
+  }
+}
+
 export const getRandomChampion = (): Champion => {
-  const rand = Math.floor(Math.random() * champions.length);
-  return champions[rand];
+  const rand = Math.random();
+  // default lvl 8
+  let cost: number;
+  if (rand < 0.15) {
+    cost = 1;
+  } else if (rand < 0.35) {
+    cost = 2;
+  } else if (rand < 0.67) {
+    cost = 3;
+  } else if (rand < 0.97) {
+    cost = 4;
+  } else {
+    cost = 5;
+  }
+  return championPool[cost][Math.floor(Math.random() * championPool[cost].length)];
+}
+
+// Lvl 2:   100%
+// Lvl 3:   75%   25%
+// Lvl 4:   55%   30%   15%
+// Lvl 5:   45%   33%   20%   2%
+// Lvl 6:   30%   40%   25%   5%
+// Lvl 7:   16%   30%   43%   10%   1%
+// Lvl 8:   15%   20%   32%   30%   3%
+// Lvl 9:   10%   17%   25%   33%   15%
+// Lvl 10:  5%    10%   20%   40%   25%
+
+const presets = [
+  [ "Kaisa", "Rift Herald", "Swain" ],
+  [ "Lux", "Garen", "Swain" ],
+  [ "Yunara", "Wukong", "Swain" ],
+  [ "Yone", "Wukong" ],
+  [ "Bel'Veth", "Ambessa", "Swain" ],
+  [ "Miss Fortune", "Fizz" ],
+  [ "Warwick", "Singed" ],
+  [ "Nidalee", "Skarner" ],
+]
+
+export const getRandomTargetPreset = (): Champion[] => {
+  const randPreset = presets[Math.floor(Math.random() * presets.length)];
+  const targets = champions.filter(x => randPreset.includes(x.name));
+  targets.forEach(x => {
+    if (x.unlockable) {
+      championPool[x.cost].push(x);
+    }
+  })
+  return targets;
 }

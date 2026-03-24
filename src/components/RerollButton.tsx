@@ -7,7 +7,7 @@ function RerollButton({reroll}: {reroll: () => void}) {
 
   useEffect(() => {
     const keydownReroll = (e: KeyboardEvent) => {
-      if (e.key === gameState.state.settings.reroll) {
+      if (e.key.toLowerCase() === gameState.state.settings.reroll) {
         reroll();
       }
     }
