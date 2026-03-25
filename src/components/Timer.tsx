@@ -13,6 +13,7 @@ function Timer() {
 
     const timeoutId = setTimeout(() => {
       setTimeleft(prev => prev - 1);
+      gameState.dispatch({ type: "incrementTime" });
     }, 1000)
 
     return () => clearTimeout(timeoutId);

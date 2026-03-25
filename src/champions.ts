@@ -219,6 +219,10 @@ const champions: Champion[] = [
   { name: "Zoe", src: Zoe, cost: 3, unlockable: false },
 ]
 
+export const getSrcList = () => {
+  return champions.map(x => x.src);
+}
+
 const championPool: Record<number, Champion[]> = {
   1: champions.filter(x => x.cost === 1 && !x.unlockable),
   2: champions.filter(x => x.cost === 2 && !x.unlockable),

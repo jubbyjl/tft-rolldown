@@ -5,6 +5,7 @@ type GameResults = {
   targetsSeen: number,
   targetsBought: number,
   misbuys: number,
+  timeLeft: number,
 }
 
 type ShopChampion = {
@@ -39,6 +40,7 @@ export type GameStateAction =
   | { type: "returnToMenu" }
   | { type: "reroll" }
   | { type: "buy", championId: number }
+  | { type: "incrementTime" }
   | { type: "editSettings", settings: Settings }
 
 const getShopChampions = (idStart: number): ShopChampion[] => {
@@ -77,6 +79,7 @@ export const gameStateReducer = (state: GameState, action: GameStateAction): Gam
           targetsSeen: 0,
           targetsBought: 0,
           misbuys: 0,
+          timeLeft: state.timer,
         },
         shop: {
           gold: 80,
@@ -181,6 +184,17 @@ export const gameStateReducer = (state: GameState, action: GameStateAction): Gam
           ...state.results,
           targetsBought: state.results.targetsBought + targetsBought,
           misbuys: state.results.misbuys + misbuys,
+        },
+      }
+    }
+
+    case "incrementTime": {
+      if (state.status !== "ingame") return state;
+      return {
+        ...state,
+        results: {
+          ...state.results,
+          timeLeft: state.results.timeLeft - 1,
         },
       }
     }

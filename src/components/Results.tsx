@@ -5,10 +5,15 @@ function Results() {
   const gameState = useContext(GameStateContext);
   const results = gameState.state.results;
 
-  // TODO: gold left, time left
   return <>
     <div className="center">
       <h1>Results</h1>
+      <div>
+        Time left: {results.timeLeft}
+      </div>
+      <div>
+        Gold left: {gameState.state.shop.gold}
+      </div>
       <div>
         Rerolls: {results.rerolls}
       </div>
