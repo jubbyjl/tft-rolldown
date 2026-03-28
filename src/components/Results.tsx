@@ -6,27 +6,27 @@ function Results() {
   const results = gameState.state.results;
 
   return <>
-    <div className="center">
-      <h1>Results</h1>
-      <div>
-        Time left: {results.timeLeft}
+    <div className="center box p-3">
+      <h1 className="mb-2">Results</h1>
+      <div className="mb-1 space-between">
+        Time left: <span>{results.timeLeft}s</span>
       </div>
-      <div>
-        Gold left: {gameState.state.shop.gold}
+      <div className="mb-1 space-between">
+        Gold left: <span>{gameState.state.shop.gold}</span>
       </div>
-      <div>
-        Rerolls: {results.rerolls}
+      <div className="mb-1 space-between">
+        Rerolls: <span>{results.rerolls}</span>
       </div>
-      <div>
-        Targets seen: {results.targetsSeen}
+      <div className="mb-1 space-between">
+        Targets seen: <span>{results.targetsSeen}</span>
       </div>
-      <div>
-        Targets bought: {results.targetsBought}
+      <div className="mb-1 space-between">
+        Targets bought: <span>{results.targetsBought}</span>
       </div>
-      <div>
-        Misbuys: {results.misbuys}
+      <div className="mb-2 space-between">
+        Misbuys: <span>{results.misbuys}</span>
       </div>
-      <button onClick={() => gameState.dispatch({ type: "returnToMenu" })}>Return to menu</button>
+      <button className="btn" onClick={() => gameState.dispatch({ type: "returnToMenu" })}>Return to menu</button>
     </div>
   </>
 }

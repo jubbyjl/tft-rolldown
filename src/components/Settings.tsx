@@ -24,10 +24,10 @@ function Settings() {
 
   return <>
     <div>
-      <h1>Settings</h1>
-      <div>
+      <h1 className="mb-2">Settings</h1>
+      <div className="space-between items-center p-2">
         Reroll:
-        <button onClick={() => setEditingReroll(prev => !prev)}>
+        <button className="btn" onClick={() => setEditingReroll(prev => !prev)}>
           {!editingReroll ? gameState.state.settings.reroll : "..."}
         </button>
       </div>

@@ -1,7 +1,7 @@
 
 .gameContainer {
   height: 100vh;
-  background-color: gray;
   position: relative;
   font-size: 2.2vh;
+  background: radial-gradient(circle, #1a2a3a 0%, #090909 100%);
 }

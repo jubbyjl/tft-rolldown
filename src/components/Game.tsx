@@ -8,6 +8,7 @@ import Timer from "./Timer";
 import styles from "./Game.module.css"
 import RoundInfo from "./RoundInfo";
 import Intermission from "./Intermission";
+import EndButton from "./EndButton";
 
 function Game() {
   const [gameState, gameStateDispatch] = useReducer(gameStateReducer, {
@@ -43,13 +44,13 @@ function Game() {
             <MainMenu />
           : gameState.status === "intermission" ?
             <>
-              <button onClick={() => gameStateDispatch({ type: "end" })}>Stop</button>
+              <EndButton />
               <Intermission />
               <Shop />
             </>
           : gameState.status === "ingame" ?
             <>
-              <button onClick={() => gameStateDispatch({ type: "end" })}>Stop</button>
+              <EndButton />
               <Timer />
               <RoundInfo />
               <Shop />
