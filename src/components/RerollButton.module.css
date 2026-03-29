@@ -1,6 +1,17 @@
 
-.rerollBtn {
+.rerollBtn, .rerollBtn:hover {
   height: 100%;
   width: 100%;
   border-radius: 0;
+  color: inherit;
+  border: 2px solid #55482f;
+  font-weight: inherit;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(to bottom, #3c3721 0%, #111 100%);
+  border-image: none;
+  text-align: left;
+}
+
+.rerollBtn:hover {
+  background: #3c3721;
 }

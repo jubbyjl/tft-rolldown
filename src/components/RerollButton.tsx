@@ -19,7 +19,9 @@ function RerollButton({reroll}: {reroll: () => void}) {
   }, [gameState.state.settings.reroll, reroll])
 
   return <>
-    <button className={styles.rerollBtn} onClick={reroll}>Reroll</button>
+    <button className={"btn " + styles.rerollBtn} onClick={reroll}>
+      Reroll
+    </button>
   </>
 }
 

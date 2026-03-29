@@ -11,12 +11,27 @@ function ChampionBuyButton({champion, buyable, onBuy}: {champion: Champion, buya
     onBuy();
   }
 
+  let bg: string;
+  if (bought) {
+    bg = "inherit";
+  } else if (champion.cost === 1) {
+    bg = "rgb(24, 36, 50)";
+  } else if (champion.cost === 2) {
+    bg = "rgb(22, 55, 36)";
+  } else if (champion.cost === 3) {
+    bg = "rgb(22, 42, 88)";
+  } else if (champion.cost === 4) {
+    bg = "rgb(95, 14, 83)";
+  } else {
+    bg = "rgb(148, 99, 33)";
+  }
+
   return <>
-    <button disabled={!buyable} className={styles.buyBtn} onClick={buyChampion}>
+    <button disabled={!buyable} className={styles.buyBtn} onClick={buyChampion} style={{background: bg}}>
       {!bought &&
         <>
           <div className={styles.championImgContainer}>
-            <img src={champion.src} className={styles.championImg} />
+            <img draggable="false" src={champion.src} className={styles.championImg} />
           </div>
           <div className={styles.championInfo}>
             <div>

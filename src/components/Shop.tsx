@@ -15,7 +15,9 @@ function Shop() {
       </div>
       <div className={styles.shopMain}>
         <div className={styles.shopControls}>
-          <div className={styles.shopControlsBtnContainer}></div>
+          <div className={styles.shopControlsBtnContainer}>
+            <div className={styles.shopControlsBtnPlaceholder}></div>
+          </div>
           <div className={styles.shopControlsBtnContainer}>
             <RerollButton reroll={() => gameState.dispatch({ type: "reroll" })}/>
           </div>
