@@ -150,7 +150,6 @@ export const gameStateReducer = (state: GameState, action: GameStateAction): Gam
           ...state.results,
           rerolls: state.results.rerolls + 1,
           targetsSeen: state.results.targetsSeen + getTargetsCount(champions, state.targets),
-          // TODO: account for seen but not enough gold
         }
       }
     }
@@ -169,21 +168,34 @@ export const gameStateReducer = (state: GameState, action: GameStateAction): Gam
       const targetsBought = isTarget ? 1 : 0;
       const misbuys = targetsBought ^ 1;
 
+      const bought = new Set(state.shop.bought).add(shopChampion.id);
+
       // check if game continues
-      const status = state.shop.gold - shopChampion.champion.cost < 4 ? "results" : state.status;
+      const fin = isTarget && state.shop.gold - shopChampion.champion.cost < 4;
+      const status = fin ? "results" : state.status;
+
+      let cantBuy = 0;
+      if (fin) {
+        state.shop.champions.forEach(x => {
+          if (state.targets.includes(x.champion) && !bought.has(x.id)) {
+            cantBuy += 1;
+          }
+        })
+      }
 
       return {
         ...state,
         status: status,
         shop: {
           ...state.shop,
-          bought: new Set(state.shop.bought).add(shopChampion.id),
-          gold: state.shop.gold - shopChampion.champion.cost,
+          bought: bought,
+          gold: isTarget ? state.shop.gold - shopChampion.champion.cost : state.shop.gold,
         },
         results: {
           ...state.results,
           targetsBought: state.results.targetsBought + targetsBought,
           misbuys: state.results.misbuys + misbuys,
+          targetsSeen: state.results.targetsSeen - cantBuy,
         },
       }
     }
