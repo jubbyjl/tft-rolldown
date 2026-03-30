@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getSrcList } from "../champions";
 
-const preloadSrc = (src: string) => {
+const preloadSrc = (src: string): Promise<HTMLImageElement> => {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = () => resolve(img);
@@ -15,7 +15,7 @@ export default function useImgPreloader() {
 
   useEffect(() => {
     const preload = async () => {
-      const promises: Promise<any>[] = [];
+      const promises: Promise<HTMLImageElement>[] = [];
       getSrcList().forEach(x => {
         promises.push(preloadSrc(x));
       })
