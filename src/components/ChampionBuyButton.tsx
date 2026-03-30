@@ -2,7 +2,7 @@ import { useState } from 'react'
 import styles from './ChampionBuyButton.module.css'
 import type { Champion } from '../champions';
 
-function ChampionBuyButton({champion, buyable, onBuy}: {champion: Champion, buyable: boolean, onBuy: () => void}) {
+function ChampionBuyButton({champion, buyable, color=false, onBuy}: {champion: Champion, buyable: boolean, color?: boolean, onBuy: () => void}) {
   const [bought, setBought] = useState(false);
 
   const buyChampion = () => {
@@ -26,12 +26,14 @@ function ChampionBuyButton({champion, buyable, onBuy}: {champion: Champion, buya
     bg = "rgb(148, 99, 33)";
   }
 
+  const gray = !color && !buyable ? {"filter": "grayscale(1)"} : undefined;
+
   return <>
     <button disabled={!buyable} className={styles.buyBtn} onClick={buyChampion} style={{background: bg}}>
       {!bought &&
         <>
           <div className={styles.championImgContainer}>
-            <img draggable="false" src={champion.src} className={styles.championImg} />
+            <img draggable="false" src={champion.src} className={styles.championImg} style={gray} />
           </div>
           <div className={styles.championInfo}>
             <div>

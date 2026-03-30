@@ -23,7 +23,7 @@ function Instructions() {
       </div>
       <div className={styles.targets}>
         {gameState.state.targets.map(x =>
-          <ChampionBuyButton key={x.name} champion={x} buyable={false} onBuy={() => {}}/>
+          <ChampionBuyButton key={x.name} champion={x} buyable={false} color={true} onBuy={() => {}}/>
         )}
       </div>
     </div>
