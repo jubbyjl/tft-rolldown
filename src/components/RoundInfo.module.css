@@ -1,7 +1,16 @@
+
 .info {
-	padding: 2%;
-	position: absolute;
-	right: 0;
-	top: 50%;
-	transform: translate(0, -50%);
+  margin-left: 2vh;
+  width: 32vh;
+}
+
+.info summary {
+  cursor: pointer;
+  width: fit-content;
+  padding: 0.5em 0;
+}
+
+.targets {
+  display: flex;
+  gap: 0.3em;
 }

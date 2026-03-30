@@ -20,9 +20,6 @@ function Timer() {
   }, [timeLeft])
 
   return <>
-    <div>
-      Time left: {timeLeft}s
-    </div>
     <TimerBar duration={gameState.state.timer}/>
   </>
 }

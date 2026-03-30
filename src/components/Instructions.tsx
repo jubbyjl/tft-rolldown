@@ -1,10 +1,12 @@
 import { useContext, useEffect } from "react"
 import { GameStateContext } from "../game-state-context"
 import TimerBar from "./TimerBar";
+import styles from "./Instructions.module.css"
+import ChampionBuyButton from "./ChampionBuyButton";
 
 function Instructions() {
   const gameState = useContext(GameStateContext);
-  const duration = 4;
+  const duration = 5;
 
   useEffect(() => {
     const id = setTimeout(() => {
@@ -16,15 +18,12 @@ function Instructions() {
 
   return <>
     <div className="center">
-      Targets:
-      <div>
+      <div className="mb-1">
+        Targets:
+      </div>
+      <div className={styles.targets}>
         {gameState.state.targets.map(x =>
-          <div key={x.name}>
-            <div>
-              {x.name}
-            </div>
-            <img src={x.src} style={{height: "10vh"}} />
-          </div>
+          <ChampionBuyButton key={x.name} champion={x} buyable={false} onBuy={() => {}}/>
         )}
       </div>
     </div>

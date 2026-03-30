@@ -6,9 +6,14 @@ function RoundInfo() {
   const gameState = useContext(GameStateContext);
 
   return <>
-    <div className={styles.info}>
+    <details className={styles.info}>
+      <summary>Details</summary>
+      <div className={styles.targets}>
+        Targets:
+        <div>{gameState.state.targets.map(x => x.name).join(", ")}</div>
+      </div>
       <div>
-        Targets: {gameState.state.targets.map(x => x.name)}
+        Time left: {gameState.state.results.timeLeft}s
       </div>
       <div>
         Rerolls: {gameState.state.results.rerolls}
@@ -22,7 +27,7 @@ function RoundInfo() {
       <div>
         Misbuys: {gameState.state.results.misbuys}
       </div>
-    </div>
+    </details>
   </>
 }
 

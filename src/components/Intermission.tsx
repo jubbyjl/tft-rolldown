@@ -6,7 +6,7 @@ function Intermission() {
 
   return <>
     {!preloaded ?
-      <>Loading</>
+      <div className="center">Loading...</div>
     :
       <Instructions />
     }
